@@ -26,4 +26,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        args: 1.py application/octet-stream
+        args: dist/1.py application/octet-stream
