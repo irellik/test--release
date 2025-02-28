@@ -17,7 +17,6 @@ jobs:
 
     - name: Build project
       run: |
-        ls bitbucket-repo/
         mkdir -p dist
         echo "test1k54664343sdjf" > dist/1.py
         ls dist/
