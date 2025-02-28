@@ -25,7 +25,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          dist/1.py  # 上传 dist 目录下的所有文件
+          README.md  # 上传 dist 目录下的所有文件
         tag_name: main-latest  # 使用固定的 Release 标签
         name: Latest Build from main
         body: "This is the latest build from the main branch."
