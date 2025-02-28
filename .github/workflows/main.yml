@@ -1,0 +1,34 @@
+name: macOS Build
+
+#on:
+#  repository_dispatch:
+#    types: [bitbucket_push]
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest 
+
+    steps:
+    
+
+    - name: Build project
+      run: |
+        ls bitbucket-repo/
+        mkdir -p dist
+        echo "test1k54664343sdjf" > dist/1.py
+        ls dist/
+
+    - name: Upload to Existing Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          dist/1.py  # 上传 dist 目录下的所有文件
+        tag_name: main-latest  # 使用固定的 Release 标签
+        name: Latest Build from main
+        body: "This is the latest build from the main branch."
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # 使用 GitHub Token
