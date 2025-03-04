@@ -1,29 +1,35 @@
-name: macOS Build
+name: Build and Release DMG on Push to Main
 
-#on:
-#  repository_dispatch:
-#    types: [bitbucket_push]
 on:
   push:
     branches:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  build-and-release:
+    runs-on: macos-latest
     steps:
-    
+      # 1. 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Build project
-      run: |
-        mkdir -p dist
-        echo "test1k54664343sdjf" > dist/1.py
-        ls dist/
+      # 2. 安装依赖（如果需要）
+      - name: Install dependencies
+        run: |
+          # 示例：安装必要工具，如 create-dmg 或其他依赖
+          brew install create-dmg  # 如果需要创建 dmg 的工具
 
-    - name: Upload file to release
-      uses: JasonEtco/upload-to-release@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        args: dist/1.py
+      # 3. 生成 DMG 文件
+      - name: Build and create DMG
+        run: |
+          echo "123" > MyApp.dmg
+
+      # 4. 发布 DMG 到 Release
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: MyApp.dmg
+          name: "Auto Release ${{ github.sha }}"
+          body: "DMG package for commit ${{ github.sha }}"
+          draft: false
+          prerelease: true  # 标记为预发布
